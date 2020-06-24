@@ -5,24 +5,25 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <p class="h1">Insert Author</p>
+            <p class="h1">Edit Book</p>
             <hr>
             <div class="card">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-md-8"><h4>Form Author</h4></div>
+                        <div class="col-md-8"><h4>Form Book</h4></div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('store-author') }}">
+                    <form method="POST" action="{{ route('update-book') }}">
                         @csrf
+                        <input name="id" type="hidden" value="{{ $book->id }}">
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
+                            <label for="title" class="col-md-4 col-form-label text-md-right">Title</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ $book->title }}" required autocomplete="title" autofocus>
 
-                                @error('name')
+                                @error('title')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -30,12 +31,12 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
+                            <label for="publisher" class="col-md-4 col-form-label text-md-right">Publisher</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                <input id="publisher" type="text" class="form-control @error('publisher') is-invalid @enderror" name="publisher" value="{{ $book->publisher }}" required autocomplete="publisher" autofocus>
 
-                                @error('email')
+                                @error('publisher')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -43,12 +44,12 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="phone" class="col-md-4 col-form-label text-md-right">Phone</label>
+                            <label for="year" class="col-md-4 col-form-label text-md-right">Year</label>
 
                             <div class="col-md-6">
-                                <input id="phone" type="number" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus>
+                                <input id="ye" type="number" class="form-control @error('ye') is-invalid @enderror" name="year" value="{{ $book->year }}" required autocomplete="year" autofocus>
 
-                                @error('phone')
+                                @error('ye')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -59,7 +60,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Save
+                                    Update
                                 </button>
                             </div>
                         </div>

@@ -33,3 +33,11 @@ Route::post('/store-author', 'AuthorsController@store')->name('store-author');
 Route::get('/edit-author/{id}', 'AuthorsController@edit');
 Route::post('/update-author', 'AuthorsController@update')->name('update-author');
 Route::get('/delete-author/{id}', 'AuthorsController@destroy')->middleware('admin');
+Route::get('/authors', 'AuthorsController@index')->name('authors');
+
+Route::get('/books', 'BooksController@index')->name('books');
+Route::get('/insert-book', 'BooksController@create')->name('insert-book');
+Route::post('/store-book', 'BooksController@store')->name('store-book');
+Route::get('/edit-book/{id}', 'BooksController@edit');
+Route::post('/update-book', 'BooksController@update')->name('update-book');
+Route::get('/delete-book/{id}', 'BooksController@destroy')->middleware('admin');

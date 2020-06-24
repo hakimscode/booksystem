@@ -39,6 +39,7 @@
                             @endsuper_admin
                             @non_super_admin 
                                 <li class="nav-item"><a href="{{ route('authors') }}" class="nav-link">Authors</a></li>
+                                <li class="nav-item"><a href="{{ route('books') }}" class="nav-link">Books</a></li>
                             @endnon_super_admin
                         @endauth
                     </ul>
