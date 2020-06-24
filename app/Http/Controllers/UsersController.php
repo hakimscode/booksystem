@@ -9,7 +9,6 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 
 class UsersController extends Controller
 {
@@ -31,8 +30,6 @@ class UsersController extends Controller
             ->where('roles.id', '!=', 1)->get();
 
         $result = new UserCollection($data);
-
-        // dd($result);
 
         return view('super_admin.users', ['users' => $result]);
     }
@@ -119,10 +116,6 @@ class UsersController extends Controller
      */
     public function update(Request $request)
     {
-        // $this->validator($request->all())->validate();
-
-        // echo $request->input('id');
-
         $user = User::findOrFail($request->input('id'));
 
         $user->name = $request->input('name');
