@@ -33,7 +33,11 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        @auth
+                            @super_admin
+                                <li class="nav-item"><a href="{{ route('users') }}" class="nav-link">Users</a></li>
+                            @endsuper_admin
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->
