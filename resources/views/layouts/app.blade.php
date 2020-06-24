@@ -37,7 +37,9 @@
                             @super_admin
                                 <li class="nav-item"><a href="{{ route('users') }}" class="nav-link">Users</a></li>
                             @endsuper_admin
-                            <li class="nav-item"><a href="{{ route('authors') }}" class="nav-link">Authors</a></li>
+                            @non_super_admin 
+                                <li class="nav-item"><a href="{{ route('authors') }}" class="nav-link">Authors</a></li>
+                            @endnon_super_admin
                         @endauth
                     </ul>
 

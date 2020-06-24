@@ -32,13 +32,19 @@ class AppServiceProvider extends ServiceProvider
             return 0;
         });
         Blade::if('admin', function () {
-            if(auth()->user() && auth()->user()->role_id == Role::find(2)){
+            if(auth()->user() && (auth()->user()->role_id == 2)){
                 return 1;
             }
             return 0;
         });
         Blade::if('non_admin', function () {
-            if(auth()->user() && auth()->user()->role_id == Role::find(3)){
+            if(auth()->user() && auth()->user()->role_id == 3){
+                return 1;
+            }
+            return 0;
+        });
+        Blade::if('non_super_admin', function () {
+            if(auth()->user() && auth()->user()->role_id != 1){
                 return 1;
             }
             return 0;

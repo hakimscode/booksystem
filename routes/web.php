@@ -32,4 +32,4 @@ Route::get('/insert-author', 'AuthorsController@create')->name('insert-author');
 Route::post('/store-author', 'AuthorsController@store')->name('store-author');
 Route::get('/edit-author/{id}', 'AuthorsController@edit');
 Route::post('/update-author', 'AuthorsController@update')->name('update-author');
-Route::get('/delete-author/{id}', 'AuthorsController@destroy');
+Route::get('/delete-author/{id}', 'AuthorsController@destroy')->middleware('admin');

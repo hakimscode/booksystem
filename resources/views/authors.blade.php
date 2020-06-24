@@ -38,7 +38,9 @@
                                 <td>{{ $author->phone }}</td>
                                 <td>
                                     <a href="/edit-author/{{ $author->id }}" type="button" class="btn btn-success">Edit</a>
-                                    <a href="/delete-author/{{ $author->id }}" type="button" class="btn btn-danger">Delete</a>
+                                    @admin
+                                        <a href="/delete-author/{{ $author->id }}" type="button" class="btn btn-danger">Delete</a>
+                                    @endadmin
                                 </td>
                             </tr>
                             @endforeach
