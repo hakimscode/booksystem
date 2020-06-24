@@ -92,6 +92,9 @@
                     var author_id = list_authors == "" ? $("#author_id").val() : "," + $("#author_id").val();
                     $("#authors").val(list_authors + author_id);
                 });
+                $("#reset_author").click(function() {
+                    $("#authors").val("");
+                });
             });
         </script>
     </div>

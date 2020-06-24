@@ -69,6 +69,7 @@
                             </div>
                             <div class="col-md-4">
                                 <a class="btn btn-success" id="add_author">+</a>
+                                <a class="btn btn-warning" id="reset_author">-</a>
                             </div>
                         </div>
 
