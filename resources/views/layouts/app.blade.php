@@ -10,7 +10,8 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
+    <script src="{{ asset('js/app.js') }}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -83,6 +84,16 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        <script>
+            $(document).ready(function(){
+                $("#add_author").click(function() {
+                    var list_authors = $("#authors").val();
+                    var author_id = list_authors == "" ? $("#author_id").val() : "," + $("#author_id").val();
+                    $("#authors").val(list_authors + author_id);
+                });
+            });
+        </script>
     </div>
 </body>
 </html>

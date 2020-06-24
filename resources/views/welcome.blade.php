@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="{{ asset('js/app.js') }}"></script>
 
         <title>Laravel</title>
 
@@ -81,9 +82,16 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Book System
+                    <div id="titelweb">Book System</div>
                 </div>
             </div>
+
+            <script>
+                $(document).ready(function(){
+                    // $("#titelweb").hide();
+                    // $("#add_author").hide();
+                });
+            </script>
         </div>
     </body>
 </html>

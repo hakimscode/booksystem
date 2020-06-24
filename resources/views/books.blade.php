@@ -26,6 +26,7 @@
                                 <th>Title</th>
                                 <th>Publisher</th>
                                 <th>Year</th>
+                                <th>Authors</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -36,6 +37,7 @@
                                 <td>{{ $book->title }}</td>
                                 <td>{{ $book->publisher }}</td>
                                 <td>{{ $book->year }}</td>
+                                <td>{{ $book->authors }}</td>
                                 <td>
                                     <a href="/edit-book/{{ $book->id }}" type="button" class="btn btn-success">Edit</a>
                                     @admin

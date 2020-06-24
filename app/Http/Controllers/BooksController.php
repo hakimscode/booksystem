@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Author;
 use App\Book;
+use App\BooksAuthor;
+use App\Http\Resources\AuthorCollection;
 use App\Http\Resources\BookCollection;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class BooksController extends Controller
@@ -22,7 +27,18 @@ class BooksController extends Controller
     public function index()
     {
         $data = Book::all();
-        $result = new BookCollection($data);
+        $result = $data;
+
+        foreach ($result as $key => $data){
+            $authors = BooksAuthor::join('authors', 'authors.id', '=', 'books_author.author_id')
+            ->select('authors.name as name')
+            ->where('book_id', $data->id)
+            ->pluck('name')->toArray();
+
+            $result[$key]['authors'] = implode(", ", $authors);
+        }
+
+        // dd($result);
 
         return view('books', ['books' => $result]);
     }
@@ -34,7 +50,9 @@ class BooksController extends Controller
      */
     public function create()
     {
-        return view('book-insert');
+        $authors = Author::all();
+
+        return view('book-insert', ['authors' => $authors]);
     }
 
     protected function validator(array $data)
@@ -55,14 +73,30 @@ class BooksController extends Controller
     public function store(Request $request)
     {
         $this->validator($request->all())->validate();
+        
+        try {
+            DB::beginTransaction();
 
-        $book = new Book();
-        $book->title = $request->input('title');
-        $book->publisher = $request->input('publisher');
-        $book->year = $request->input('year');
+            $book = new Book();
+            $book->title = $request->input('title');
+            $book->publisher = $request->input('publisher');
+            $book->year = $request->input('year');
+            
+            if ($book->save()) {
+                $authors = explode(',', $request->input('authors'));
+            
+                for($i=0; $i<count($authors); $i++){
+                    $books_author = new BooksAuthor();
+                    $books_author->author_id = $authors[$i];
+                    $books_author->book_id = $book->id;
+                    $books_author->save();
+                }
 
-        if ($book->save()) {
-            return redirect(route('books'));
+                DB::commit();
+                return redirect(route('books'));
+            }
+        }catch(Exception $e){
+            DB::rollBack();
         }
     }
 
@@ -86,7 +120,14 @@ class BooksController extends Controller
     public function edit($id)
     {
         $book = Book::find($id);
-        return view('book-edit', ['book' => $book]);
+        $authors = Author::all();
+
+        $current_authors = BooksAuthor::join('authors', 'authors.id', '=', 'books_author.author_id')
+            ->select('authors.id as id')
+            ->where('book_id', $id)
+            ->pluck('id')->toArray();
+
+        return view('book-edit', ['book' => $book, 'authors' => $authors, 'current_authors' => implode(", ", $current_authors)]);
     }
 
     /**
@@ -105,6 +146,17 @@ class BooksController extends Controller
         $book->year = $request->input('year');
 
         if ($book->save()) {
+            BooksAuthor::where('book_id', $request->input('id'))->delete();
+
+            $authors = explode(',', $request->input('authors'));
+            
+            for($i=0; $i<count($authors); $i++){
+                $books_author = new BooksAuthor();
+                $books_author->author_id = $authors[$i];
+                $books_author->book_id = $book->id;
+                $books_author->save();
+            }
+
             return redirect(route('books'));
         }
     }
