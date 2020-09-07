@@ -88,8 +88,6 @@
 
             <script>
                 $(document).ready(function(){
-                    // $("#titelweb").hide();
-                    // $("#add_author").hide();
                 });
             </script>
         </div>
